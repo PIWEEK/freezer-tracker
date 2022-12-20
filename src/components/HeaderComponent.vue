@@ -1,14 +1,15 @@
 <template>
-  <div class="header">
+  <router-link to="/" class="header">
     <img alt="freezer tracker logo" src="../assets/logo.svg">
     <h1 class="name">FREEZER TRACKER</h1>
-  </div>
+  </router-link>
 </template>
 
 <style lang="scss" scoped>
   .header {
     display: flex;
     justify-content: center;
+    text-decoration: none;
   }
 
   .name {

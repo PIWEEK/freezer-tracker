@@ -3,7 +3,7 @@
     <div class="start">
       <h1 class="name">FREEZER <br/> TRACKER</h1>
       <img class="logo" alt="freezer tracker logo" src="../assets/logo.svg">
-      <button type="button" class="btn">Start</button>
+      <router-link class="btn" to="/freezer">Start</router-link>
     </div>
   </div>
 </template>
@@ -26,12 +26,14 @@
     align-items: center;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    height: 100vh;
   }
 
   .name {
     color: #3f63c8;
     font-size: 24px;
-    margin-inline-start: 10px;
+    margin: 0;
   }
 
   .logo {
@@ -40,13 +42,8 @@
   }
 
   .btn {
-    background-color: #3f63c8;
     min-inline-size: 150px;
-    border: none;
-    border-radius: 3px;
-    color: #ffffff;
     margin-block-start: 40px;
-    padding-block: 10px;
-    padding-inline: 10px;
+    text-decoration: none;
   }
 </style>
