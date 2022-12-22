@@ -11,7 +11,15 @@
 <script lang="ts">
   import { Vue } from 'vue-class-component';
 
-  export default class HomeView extends Vue {}
+  export default class HomeView extends Vue {
+    beforeMount() {
+      if (localStorage.getItem('drawers')) {
+        setTimeout( () => {
+          this.$router.push({name: 'freezer'})
+        }, 1000)
+      }
+    }
+  }
 </script>
 
 <style lang="scss" scoped>

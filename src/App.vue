@@ -1,7 +1,7 @@
 <template>
   <header v-if="$route.path !== '/'">
     <router-link class="header" to="/">
-      <img alt="freezer tracker logo" src="./assets/logo.svg" width="35" height="35">
+      <img alt="freezer tracker logo" src="./assets/logo.svg" width="30" height="30">
       <h1 class="name">FREEZER TRACKER</h1>
     </router-link>
   </header>
@@ -45,13 +45,14 @@
 
     & .name {
       color: #3f63c8;
-      font-size: 24px;
+      font-size: 20px;
       margin-inline-start: 10px;
+      margin-block: 5px;
     }
   }
 
   input {
-    border: 1px solid #3f63c8;
+    border: 1px solid #a29e9e;
     border-radius: 3px;
     box-sizing: border-box;
     inline-size: 100%;
@@ -62,11 +63,16 @@
     &::placeholder {
       color: #c4bdbd;
     }
+
+    &:focus-visible {
+      border: 1px solid #3f63c8;
+      outline: 1px solid #3f63c8;
+    }
   }
 
   select {
     background-color: #ffffff;
-    border: 1px solid #3f63c8;
+    border: 1px solid #a29e9e;
     border-radius: 3px;
     box-sizing: border-box;
     color: #000000;
@@ -79,6 +85,10 @@
     background-repeat: no-repeat;
     background-position: right 1rem center;
     background-size: 1em;
+
+    &::focus {
+      border: 1px solid #3f63c8;
+    }
   }
 
   option {

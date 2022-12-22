@@ -1,4 +1,5 @@
 <template>
+  <div v-if="drawers" class="edit-drawers">Edit drawers</div>
   <div v-if="drawers" class="freezer">
     <div class="drawers">
       <div class="drawer-wrapper" v-for="drawer in drawersArray" :key="drawer">
@@ -28,8 +29,8 @@
   </div>
   <div v-else class="empty freezer">
     <div class="content">
-      <input type="number" v-model="drawersForm" placeholder="Drawers quantity">
-      <button class="btn" @click="saveDrawers()">Set drawers</button>
+      <input type="number" v-model="drawersForm" placeholder="Number of drawers">
+      <button class="btn" @click="saveDrawers()">Save</button>
     </div>
   </div>
 </template>
@@ -68,20 +69,30 @@
 </script>
 
 <style lang="scss" scoped>
+
+  .edit-drawers {
+    color: #3f63c8;
+    font-weight: bold;
+    text-align: right;
+    margin-inline-end: 35px;
+    margin-block-start: 20px;
+  }
+
   .freezer {
     display: flex;
     flex-direction: column;
-    max-block-size: calc(100vh - 140px);
-    inline-size: 80%;
+    block-size: calc(100vh - 140px);
+    inline-size: 85%;
     border: 3px solid #dadfe9;
     border-radius: 10px;
     margin-inline: auto;
-    margin-block-start: 25px;
+    margin-block-start: 10px;
     overflow: auto;
 
     &.empty {
-      border: 3px dashed #b1b2b5;
+      border: 3px dashed #dadfe9;
       justify-content: center;
+      margin-block-start: 25px;
     }
   }
 
@@ -90,7 +101,7 @@
 
     button {
       inline-size: 100%;
-      margin-block-start: 40px;
+      margin-block-start: 20px;
     }
   }
 

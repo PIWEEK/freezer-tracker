@@ -149,6 +149,8 @@
   }
 
   .actions {
+    margin-block-start: 10px;
+
     & .btn {
       inline-size: 100%;
       margin-block-start: 10px;

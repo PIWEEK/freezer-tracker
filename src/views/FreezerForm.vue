@@ -9,15 +9,15 @@
       </div>
       <div class="block">
         <label for="name">Name *</label>
-        <input type="text" name="name" v-model="form.name" placeholder="Product name*" required>
+        <input type="text" name="name" v-model="form.name" required>
       </div>
       <div class="block">
         <label for="descrition">Description</label>
-        <input name="description" type="text" v-model="form.description" placeholder="Description">
+        <input name="description" type="text" v-model="form.description">
       </div>
       <div class="block">
         <label for="quantity">Quantity</label>
-        <input name="quantity" type="text" v-model="form.quantity" placeholder="Quantity">
+        <input name="quantity" type="text" v-model="form.quantity">
       </div>
       <div class="block">
         <label for="freezing-date">Freezing date</label>
@@ -28,9 +28,9 @@
         <input name="expiration-date" type="date" v-model="form.expirationDate" placeholder="Expiration date" :class="{ empty: form.expirationDate === '' }">
       </div>
       <div class="block">
-        <label for="category">Category</label>
+        <label for="category">Category *</label>
         <select name="category" v-model="form.category" required v-bind:class="{ empty: form.category === null }">
-          <option disabled value="null">Category*</option>
+          <option disabled value="null">Choose one</option>
           <option value="Vegetables">Vegetables</option>
           <option value="Meat">Meat</option>
           <option value="Fish">Fish</option>
