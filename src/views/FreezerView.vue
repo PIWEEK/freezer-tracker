@@ -1,12 +1,29 @@
 <template>
-  <HeaderComponent/>
   <div v-if="drawers" class="freezer">
     <div class="drawers">
-      <v-template v-for="drawer in drawersArray" :key="drawer">
-        <router-link class="add-link" :to="{path: '/form', params: { drawerNum: drawer}}">Add</router-link>
-        <div v-if="freezer && freezer[drawer]" class="drawer"></div>
-        <div v-else class="drawer empty">empty</div>
-      </v-template>
+      <div class="drawer-wrapper" v-for="drawer in drawersArray" :key="drawer">
+        <div class="actions">
+          <span class="drawer-number">#{{drawer + 1}}</span>
+          <router-link class="add-link" :to="{name: 'freezerForm', params: { drawerId: drawer + 1}}">+ Add item</router-link>
+        </div>
+        <div v-if="freezer && freezer[drawer + 1] && freezer[drawer + 1].length" class="drawer">
+          <template v-for="(item, index) in freezer[drawer + 1]" :key="index">
+            <div :class="`item ${item.category}`" @click="goToDetail(item, drawer + 1)">
+              <img v-if="item && item.category === 'Vegetables'" alt="Vegetables icon" src="../assets/veggies.svg">
+              <img v-if="item && item.category === 'Meat'" alt="Meat icon" src="../assets/meat.svg">
+              <img v-if="item && item.category === 'Fish'" alt="Fish icon" src="../assets/fish.svg">
+              <img v-if="item && item.category === 'Dessert'" alt="Dessert icon" src="../assets/dessert.svg">
+              <img v-if="item && item.category === 'Dishes'" alt="Dishes icon" src="../assets/dishes.svg">
+              <img v-if="item && item.category === 'Other'" alt="Other icon" src="../assets/other.svg">
+              <div>
+                <span class="name">{{item.name}}</span>
+                <span class="quantity">{{item.quantity}}</span>
+              </div>
+            </div>
+          </template>
+        </div>
+        <div v-else class="drawer empty">Drawer is empty</div>
+      </div>
     </div>
   </div>
   <div v-else class="empty freezer">
@@ -18,33 +35,33 @@
 </template>
 
 <script lang="ts">
-  import HeaderComponent from "../components/HeaderComponent.vue";
+
   export default {
-    props: {
-      freezer: localStorage.getItem('freezer')
-        ? localStorage.getItem('freezer')
-        : {}
-    },
     data () {
       return {
         drawers: localStorage.getItem('drawers')
         ? +localStorage.getItem('drawers')
         : 0,
         drawersForm: null,
-        drawersArray: this.drawers ? [...Array(this.drawers)] : []
+        drawersArray: this.drawers ? Array.from(Array(this.drawers).keys()) : [],
+        freezer: localStorage.getItem('freezer')
+        ? JSON.parse(localStorage.getItem('freezer'))
+        : {},
       }
     },
-    components: {
-      HeaderComponent
-    },
-    mounted() {
-      this.drawersArray = [...Array(this.drawers)]
+    beforeMount() {
+      this.drawersArray = Array.from(Array(this.drawers).keys())
+      this.$store.commit('clearItemDetail')
     },
     methods: {
       saveDrawers() {
         localStorage.setItem('drawers', this.drawersForm)
         this.drawers = this.drawersForm
         this.drawersArray = [...Array(this.drawersForm)]
+      },
+      goToDetail(item, drawer) {
+        this.$store.commit('setItemDetail', { item, drawer })
+        this.$router.push({name: 'item'})
       }
     }
   }
@@ -54,15 +71,16 @@
   .freezer {
     display: flex;
     flex-direction: column;
-    min-block-size: calc(100vh - 200px);
+    max-block-size: calc(100vh - 140px);
     inline-size: 80%;
-    border: 3px solid black;
+    border: 3px solid #dadfe9;
     border-radius: 10px;
     margin-inline: auto;
     margin-block-start: 25px;
+    overflow: auto;
 
     &.empty {
-      border: 3px dashed black;
+      border: 3px dashed #b1b2b5;
       justify-content: center;
     }
   }
@@ -76,28 +94,95 @@
     }
   }
 
-  .drawers {
+  .actions {
+    color: #3f63c8;
+    display: flex;
+    justify-content: space-between;
+    margin-block-end: 5px;
+
+    & .add-link {
+      color: #3f63c8;
+      font-weight: bold;
+      text-align: right;
+      text-decoration: none;
+    }
+  }
+
+  .drawer-wrapper {
+    border-bottom: 3px solid #dadfe9;
     padding: 20px;
   }
 
   .drawer {
     align-items: center;
-    border: 1px solid black;
+    border: 1px solid #dadfe9;
+    box-sizing: border-box;
+    border-radius: 5px;
     display: flex;
-    justify-content: center;
-    min-block-size: 100px;
+    min-block-size: 155px;
+    max-block-size: 155px;
+    overflow-x: auto;
+    padding: 10px;
 
     &.empty {
-      border: 1px dashed black;
+      border: 1px dashed #b1b2b5;
+      color: #b1b2b5;
+      justify-content: center;
     }
   }
 
-  .add-link {
-    color: #3f63c8;
-    display: block;
-    text-align: right;
+  .item {
+    block-size: 130px;
+    border-radius: 3px;
+    box-sizing: border-box;
+    color: #000000;
+    display: grid;
+    grid-template-rows: 65px 1fr;
+    margin-inline-end: 10px;
+    inline-size: 95px;
+    min-inline-size: 95px;
+    padding: 10px;
     text-decoration: none;
-    margin-block-end: 5px;
-    margin-block-start: 20px;
+
+    & img {
+      align-self: center;
+      justify-self: center;
+      padding: 5px;
+      transform: scale(0.95);
+    }
+
+    &.Vegetables {
+      background-color: #c4ddb3;
+    }
+    &.Meat {
+      background-color: #f8c9c9;
+    }
+    &.Fish {
+      background-color: #acdddb;
+    }
+    &.Dessert {
+      background-color: #e2a7d7;
+    }
+    &.Dishes {
+      background-color: #ffd0b5;
+    }
+    &.Other {
+      background-color: #ebf18b;
+    }
+
+    & .name, .quantity {
+      font-size: 12px;
+      display: block;
+      font-weight: bold;
+      text-align: left;
+    }
+
+    & .name {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      }
   }
 </style>

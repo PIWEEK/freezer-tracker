@@ -16,8 +16,8 @@ const routes: Array<RouteRecordRaw> = [
     component: FreezerView
   },
   {
-    path: '/form',
-    name: 'freezer-form',
+    path: '/freezer/:drawerId',
+    name: 'freezerForm',
     component: FreezerForm
   },
   {
