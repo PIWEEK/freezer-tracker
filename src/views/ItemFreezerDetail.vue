@@ -119,6 +119,7 @@
     }
 
     & .description {
+      word-break: break-all;
       font-size: 14px;
     }
   }

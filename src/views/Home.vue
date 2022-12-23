@@ -37,12 +37,15 @@
     background-color: #3f63c8;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-between;
     block-size: 100vh;
+    box-sizing: border-box;
+    padding-block: 50px;
   }
 
   .up {
     inline-size: 100%;
+    margin-block-start: 100px;
   }
 
   .down {
