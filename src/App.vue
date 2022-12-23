@@ -51,6 +51,14 @@
     }
   }
 
+  label {
+    color: #3f63c8;
+    display: block;
+    font-size: 14px;
+    margin-block-end: 7px;
+    text-align: left;
+  }
+
   input {
     border: 1px solid #a29e9e;
     border-radius: 3px;
@@ -110,7 +118,7 @@
   }
 
   .main-container {
-    padding: 20px;
+    padding: 30px;
   }
 
   p {

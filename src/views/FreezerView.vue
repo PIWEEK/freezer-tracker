@@ -1,36 +1,39 @@
 <template>
-  <div v-if="drawers" class="edit-drawers">Edit drawers</div>
-  <div v-if="drawers" class="freezer">
-    <div class="drawers">
-      <div class="drawer-wrapper" v-for="drawer in drawersArray" :key="drawer">
-        <div class="actions">
-          <span class="drawer-number">#{{drawer + 1}}</span>
-          <router-link class="add-link" :to="{name: 'freezerForm', params: { drawerId: drawer + 1}}">+ Add item</router-link>
-        </div>
-        <div v-if="freezer && freezer[drawer + 1] && freezer[drawer + 1].length" class="drawer">
-          <template v-for="(item, index) in freezer[drawer + 1]" :key="index">
-            <div :class="`item ${item.category}`" @click="goToDetail(item, drawer + 1)">
-              <img v-if="item && item.category === 'Vegetables'" alt="Vegetables icon" src="../assets/veggies.svg">
-              <img v-if="item && item.category === 'Meat'" alt="Meat icon" src="../assets/meat.svg">
-              <img v-if="item && item.category === 'Fish'" alt="Fish icon" src="../assets/fish.svg">
-              <img v-if="item && item.category === 'Dessert'" alt="Dessert icon" src="../assets/dessert.svg">
-              <img v-if="item && item.category === 'Dishes'" alt="Dishes icon" src="../assets/dishes.svg">
-              <img v-if="item && item.category === 'Other'" alt="Other icon" src="../assets/other.svg">
-              <div>
-                <span class="name">{{item.name}}</span>
-                <span class="quantity">{{item.quantity}}</span>
+  <div class="main-container">
+    <div v-if="drawers" class="edit-drawers">Edit drawers</div>
+    <div v-if="drawers" class="freezer">
+      <div class="drawers">
+        <div class="drawer-wrapper" v-for="(drawer, index) in drawersArray" :key="drawer">
+          <div class="actions">
+            <span class="drawer-number">#{{index + 1}}</span>
+            <router-link class="add-link" :to="{name: 'freezerForm', params: { drawerId: drawer + 1}}">+ Add item</router-link>
+          </div>
+          <div v-if="freezer && freezer[index + 1] && freezer[drawer + 1].length" class="drawer">
+            <template v-for="(item, index) in freezer[drawer + 1]" :key="index">
+              <div :class="`item ${item.category}`" @click="goToDetail(item, drawer + 1)">
+                <img v-if="item && item.category === 'Vegetables'" alt="Vegetables icon" src="../assets/veggies.svg">
+                <img v-if="item && item.category === 'Meat'" alt="Meat icon" src="../assets/meat.svg">
+                <img v-if="item && item.category === 'Fish'" alt="Fish icon" src="../assets/fish.svg">
+                <img v-if="item && item.category === 'Dessert'" alt="Dessert icon" src="../assets/dessert.svg">
+                <img v-if="item && item.category === 'Dishes'" alt="Dishes icon" src="../assets/dishes.svg">
+                <img v-if="item && item.category === 'Other'" alt="Other icon" src="../assets/other.svg">
+                <div>
+                  <span class="name">{{item.name}}</span>
+                  <span class="quantity">{{item.quantity}}</span>
+                </div>
               </div>
-            </div>
-          </template>
+            </template>
+          </div>
+          <div v-else class="drawer empty">Drawer is empty</div>
         </div>
-        <div v-else class="drawer empty">Drawer is empty</div>
       </div>
     </div>
-  </div>
-  <div v-else class="empty freezer">
-    <div class="content">
-      <input type="number" v-model="drawersForm" placeholder="Number of drawers">
-      <button class="btn" @click="saveDrawers()">Save</button>
+    <div v-else class="empty freezer">
+      <div class="content">
+        <label class="drawers" for="drawers">Number of drawers *</label>
+        <input type="number" name="drawers" v-model="drawersForm">
+        <button class="btn" @click="saveDrawers()">Save</button>
+      </div>
     </div>
   </div>
 </template>
@@ -74,15 +77,12 @@
     color: #3f63c8;
     font-weight: bold;
     text-align: right;
-    margin-inline-end: 35px;
-    margin-block-start: 20px;
   }
 
   .freezer {
     display: flex;
     flex-direction: column;
     block-size: calc(100vh - 140px);
-    inline-size: 85%;
     border: 3px solid #dadfe9;
     border-radius: 10px;
     margin-inline: auto;

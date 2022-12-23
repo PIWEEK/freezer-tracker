@@ -8,28 +8,30 @@
         <p>Fill the required fields</p>
       </div>
       <div class="block">
-        <label for="name">Name *</label>
+        <label class="name" for="name">Name *</label>
         <input type="text" name="name" v-model="form.name" required>
       </div>
       <div class="block">
-        <label for="descrition">Description</label>
+        <label class="descrition" for="descrition">Description</label>
         <input name="description" type="text" v-model="form.description">
       </div>
       <div class="block">
-        <label for="quantity">Quantity</label>
+        <label class="quantity" for="quantity">Quantity</label>
         <input name="quantity" type="text" v-model="form.quantity">
       </div>
-      <div class="block">
-        <label for="freezing-date">Freezing date</label>
-        <input name="freezing-date" type="date" v-model="form.freezingDate" placeholder="Freezing date" :class="{ empty: form.freezingDate === '' }">
-      </div>
-      <div class="block">
-        <label for="expiration-date">Expiration date</label>
-        <input name="expiration-date" type="date" v-model="form.expirationDate" placeholder="Expiration date" :class="{ empty: form.expirationDate === '' }">
+      <div class="group">
+        <div class="block">
+          <label class="freezing" for="freezing-date">Freezing date</label>
+          <input name="freezing-date" type="date" v-model="form.freezingDate" placeholder="Freezing date" :class="{ empty: form.freezingDate === '' }">
+        </div>
+        <div class="block">
+          <label class="expiration" for="expiration-date">Expiration date</label>
+          <input name="expiration-date" type="date" v-model="form.expirationDate" placeholder="Expiration date" :class="{ empty: form.expirationDate === '' }">
+        </div>
       </div>
       <div class="block">
         <label for="category">Category *</label>
-        <select name="category" v-model="form.category" required v-bind:class="{ empty: form.category === null }">
+        <select class="category" name="category" v-model="form.category" required v-bind:class="{ empty: form.category === null }">
           <option disabled value="null">Choose one</option>
           <option value="Vegetables">Vegetables</option>
           <option value="Meat">Meat</option>
@@ -40,7 +42,7 @@
         </select>
       </div>
       <div class="block">
-        <label for="drawer">Drawer</label>
+        <label class="drawer" for="drawer">Drawer</label>
         <select name="drawer" v-model="form.drawer" required>
           <option v-for="drawer in drawersArray" :key="drawer" :value="drawer +1" :selected="drawer + 1 === form.drawer">{{drawer + 1}}</option>
         </select>
@@ -167,19 +169,32 @@
   }
   .form {
     display: grid;
-    grid-gap: 15px;
+    grid-gap: 20px;
 
     & .empty {
       color: #c4bdbd;
     }
-
-    label {
-      color: #3f63c8;
-      display: block;
-      font-size: 14px;
-      margin-block-end: 5px;
-      text-align: left;
-    }
+    // & .name:before {
+    //   content: url('../assets/other.svg');
+    // }
+    // & .description:before {
+    //   content: url('../assets/other.svg');
+    // }
+    // & .quantity:before {
+    //   content: url('../assets/other.svg');
+    // }
+    // & .freezing:before {
+    //   content: url('../assets/other.svg');
+    // }
+    // & .expiration:before {
+    //   content: url('../assets/other.svg');
+    // }
+    // & .category:before {
+    //   content: url('../assets/other.svg');
+    // }
+    // & .drawer:before {
+    //   content: url('../assets/other.svg');
+    // }
   }
 
   .btn {
@@ -193,5 +208,12 @@
     padding-block: 5px;
     padding-inline: 10px;
     font-family: Nunito, Helvetica, Arial, sans-serif;
+  }
+
+  .group {
+    display: grid;
+    justify-content: space-between;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 15px;
   }
 </style>
