@@ -4,12 +4,14 @@
       <div class="up">
         <h1 class="name">FREEZER <br/> TRACKER</h1>
         <img class="logo" alt="freezer tracker logo" src="../assets/logo.svg" width="55" height="55">
-        <router-link class="btn" to="/freezer">Start</router-link>
       </div>
       <div class="down">
-        <img alt="Meat icon" src="../assets/meat.svg">
-        <img alt="Dishes icon" src="../assets/dishes.svg">
-        <img alt="Vegetables icon" src="../assets/veggies.svg">
+        <router-link class="btn" to="/freezer">Start</router-link>
+        <div class="icons">
+          <img alt="Meat icon" src="../assets/meat.svg">
+          <img alt="Dishes icon" src="../assets/dishes.svg">
+          <img alt="Vegetables icon" src="../assets/veggies.svg">
+        </div>
       </div>
     </div>
   </div>
@@ -44,6 +46,10 @@
   }
 
   .down {
+    inline-size: 100%;
+  }
+
+  .icons {
     display: flex;
     justify-content: space-evenly;
     inline-size: 100%;
@@ -51,7 +57,9 @@
 
   .name {
     color: #ffffff;
+    font-family: Nunito, Helvetica, Arial, sans-serif;
     font-size: 36px;
+    font-weight: 400;
     margin: 0;
   }
 
@@ -67,7 +75,7 @@
     color: #3f63c8;
     display: block;
     inline-size: 100%;
-    margin-block-start: 55px;
+    margin-block-end: 30px;
     padding-inline: 0;
     text-decoration: none;
   }

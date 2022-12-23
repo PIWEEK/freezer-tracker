@@ -9,10 +9,10 @@
 </template>
 
 <style lang="scss">
-  @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Nunito&family=Source+Sans+Pro:wght@400;600;700&display=swap');
   html {
     background-color: #f9f9f9;
-    font-family: Nunito, Helvetica, Arial, sans-serif;
+    font-family: 'Source Sans Pro', sans-serif;
     margin-inline: auto;
     max-block-size: 915px;
     max-inline-size: 412px;
@@ -28,7 +28,7 @@
   }
 
   #app {
-    font-family: Nunito, Helvetica, Arial, sans-serif;
+    font-family: 'Source Sans Pro', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
@@ -45,7 +45,9 @@
 
     & .name {
       color: #3f63c8;
+      font-family: Nunito, Helvetica, Arial, sans-serif;
       font-size: 20px;
+      font-weight: 400;
       margin-inline-start: 10px;
       margin-block: 5px;
     }
@@ -55,6 +57,7 @@
     color: #3f63c8;
     display: block;
     font-size: 14px;
+    font-weight: 600;
     margin-block-end: 7px;
     text-align: left;
   }
@@ -64,7 +67,7 @@
     border-radius: 3px;
     box-sizing: border-box;
     inline-size: 100%;
-    font-family: Nunito, Helvetica, Arial, sans-serif;
+    font-family: 'Source Sans Pro', sans-serif;
     padding-block: 10px;
     padding-inline: 10px;
 
@@ -85,7 +88,7 @@
     box-sizing: border-box;
     color: #000000;
     inline-size: 100%;
-    font-family: Nunito, Helvetica, Arial, sans-serif;
+    font-family: 'Source Sans Pro', sans-serif;
     padding-block: 10px;
     padding-inline: 10px;
     appearance: none;
@@ -94,8 +97,9 @@
     background-position: right 1rem center;
     background-size: 1em;
 
-    &::focus {
+    &:focus-visible {
       border: 1px solid #3f63c8;
+      outline: 1px solid #3f63c8;
     }
   }
 
@@ -112,7 +116,7 @@
     border: none;
     border-radius: 3px;
     color: #ffffff;
-    font-family: Nunito, Helvetica, Arial, sans-serif;
+    font-family: 'Source Sans Pro', sans-serif;
     padding-block: 10px;
     padding-inline: 10px;
   }

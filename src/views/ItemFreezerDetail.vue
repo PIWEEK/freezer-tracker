@@ -48,7 +48,7 @@
           </div>
         </div>
         <div class="block" v-if="item.drawer">
-          <img alt="icon" src="../assets/other.svg">
+          <img alt="icon" src="../assets/drawer.svg">
           <div class="additional-text">
             <p class="title">Drawer</p>
             <p class="text">{{item.drawer}}</p>
@@ -95,7 +95,7 @@
 <style lang="scss" scoped>
   .close {
     text-align: left;
-    font-weight: bold;
+    font-weight: 700;
   }
 
   .wrapper-info {
@@ -115,7 +115,7 @@
 
     & .name {
       font-size: 18px;
-      font-weight: bold;
+      font-weight: 700;
     }
 
     & .description {
@@ -135,12 +135,12 @@
 
     & .title {
       font-size: 14px;
-      font-weight: bold;
+      font-weight: 700;
     }
 
     & img {
       justify-self: center;
-      align-self: center;
+      align-self: start;
     }
 
     & .text {

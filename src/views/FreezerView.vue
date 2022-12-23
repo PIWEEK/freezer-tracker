@@ -1,6 +1,6 @@
 <template>
   <div class="main-container">
-    <div v-if="drawers" class="edit-drawers">Edit drawers</div>
+    <!--<div v-if="drawers" class="edit-drawers">Edit drawers</div>-->
     <div v-if="drawers" class="freezer">
       <div class="drawers">
         <div class="drawer-wrapper" v-for="(drawer, index) in drawersArray" :key="drawer">
@@ -10,16 +10,18 @@
           </div>
           <div v-if="freezer && freezer[index + 1] && freezer[drawer + 1].length" class="drawer">
             <template v-for="(item, index) in freezer[drawer + 1]" :key="index">
-              <div :class="`item ${item.category}`" @click="goToDetail(item, drawer + 1)">
-                <img v-if="item && item.category === 'Vegetables'" alt="Vegetables icon" src="../assets/veggies.svg">
-                <img v-if="item && item.category === 'Meat'" alt="Meat icon" src="../assets/meat.svg">
-                <img v-if="item && item.category === 'Fish'" alt="Fish icon" src="../assets/fish.svg">
-                <img v-if="item && item.category === 'Dessert'" alt="Dessert icon" src="../assets/dessert.svg">
-                <img v-if="item && item.category === 'Dishes'" alt="Dishes icon" src="../assets/dishes.svg">
-                <img v-if="item && item.category === 'Other'" alt="Other icon" src="../assets/other.svg">
-                <div>
-                  <span class="name">{{item.name}}</span>
-                  <span class="quantity">{{item.quantity}}</span>
+              <div :class="`item-wrapper ${item.category} ${isExpired(item) ? 'expired': ''}`" @click="goToDetail(item, drawer + 1)">
+              <div :class="`item ${isExpired(item) ? 'opacity': ''}`">
+                  <img v-if="item && item.category === 'Vegetables'" alt="Vegetables icon" src="../assets/veggies.svg">
+                  <img v-if="item && item.category === 'Meat'" alt="Meat icon" src="../assets/meat.svg">
+                  <img v-if="item && item.category === 'Fish'" alt="Fish icon" src="../assets/fish.svg">
+                  <img v-if="item && item.category === 'Dessert'" alt="Dessert icon" src="../assets/dessert.svg">
+                  <img v-if="item && item.category === 'Dishes'" alt="Dishes icon" src="../assets/dishes.svg">
+                  <img v-if="item && item.category === 'Other'" alt="Other icon" src="../assets/other.svg">
+                  <div>
+                    <span class="name">{{item.name}}</span>
+                    <span class="quantity">{{item.quantity}}</span>
+                  </div>
                 </div>
               </div>
             </template>
@@ -66,6 +68,13 @@
       goToDetail(item, drawer) {
         this.$store.commit('setItemDetail', { item, drawer })
         this.$router.push({name: 'item'})
+      },
+      isExpired(item) {
+        if (item.expirationDate) {
+          const today = new Date().setHours(0,0,0,0);
+          const expiration = new Date(item.expirationDate).setHours(0,0,0,0);
+          return expiration  < today;
+        }
       }
     }
   }
@@ -75,14 +84,14 @@
 
   .edit-drawers {
     color: #3f63c8;
-    font-weight: bold;
+    font-weight: 700;
     text-align: right;
   }
 
   .freezer {
     display: flex;
     flex-direction: column;
-    block-size: calc(100vh - 140px);
+    block-size: calc(100vh - 155px);
     border: 3px solid #dadfe9;
     border-radius: 10px;
     margin-inline: auto;
@@ -113,7 +122,7 @@
 
     & .add-link {
       color: #3f63c8;
-      font-weight: bold;
+      font-weight: 700;
       text-align: right;
       text-decoration: none;
     }
@@ -142,18 +151,43 @@
     }
   }
 
-  .item {
+  .item-wrapper {
     block-size: 130px;
     border-radius: 3px;
     box-sizing: border-box;
     color: #000000;
-    display: grid;
-    grid-template-rows: 65px 1fr;
+
     margin-inline-end: 10px;
     inline-size: 95px;
     min-inline-size: 95px;
     padding: 10px;
+    position: relative;
     text-decoration: none;
+
+    &.expired:before {
+      align-items: center;
+      background-color: rgb(255 255 255 / 30%);
+      block-size: 100%;
+      content: url("../assets/skull.svg");
+      display: flex;
+      font-weight: 700;
+      inline-size: 100%;
+      justify-content: center;
+      left: 0;
+      opacity: 100%;
+      position: absolute;
+      top: 0;
+      z-index: 1;
+    }
+
+    & .item {
+      display: grid;
+      grid-template-rows: 65px 1fr;
+    }
+
+    & .opacity {
+      opacity: 30%;
+    }
 
     & img {
       align-self: center;
@@ -184,11 +218,12 @@
     & .name, .quantity {
       font-size: 12px;
       display: block;
-      font-weight: bold;
+      font-weight: 600;
       text-align: left;
     }
 
     & .name {
+      font-weight: 700;
       overflow: hidden;
       text-overflow: ellipsis;
       display: -webkit-box;
